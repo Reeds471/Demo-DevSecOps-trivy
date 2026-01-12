@@ -1,0 +1,32 @@
+name: 🛡️ Security Guard (DevSecOps)
+
+# Déclencheur : Quand on pousse du code ou qu'on fait une Pull Request
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  security-check:
+    name: 🔍 Trivy Vulnerability Scanner
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Récupérer le code du dépôt
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Construire l'image Docker (sans la pousser) pour l'analyser
+      - name: Build Docker Image
+        run: docker build -t my-app:vulnerable .
+
+      # 3. Lancer le scanneur de sécurité TRIVY
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'my-app:vulnerable'
+          format: 'table'
+          # On ne bloque que si la sévérité est CRITIQUE ou HAUTE
+          severity: 'CRITICAL,HIGH'
+          # Code 1 = Fait échouer la pipeline si des failles sont trouvées
+          exit-code: '1'
