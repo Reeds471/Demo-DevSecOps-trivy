@@ -1,4 +1,5 @@
-FROM python:3.9-alpine
+#On introduit une image Docker obsolète
+FROM python:3.4-alpine
 
 #On simule une petite installation
 WORKDIR /app
