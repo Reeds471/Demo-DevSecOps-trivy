@@ -1,10 +1,10 @@
-#En production une image Python avec une version à jour
-FROM python:3.13-alpine
+#On tente de pousser en production une image Python complètement obsolète.
+FROM python:3.4-alpine
 
-#On simule une petite installation
+
 WORKDIR /app
 COPY . .
 
-# Commande factice on appelle une dépendance à jour.
+# On simule une petite installation en appelant une dépendance obsolète.
 RUN pip install -r requirements.txt
 CMD ["python", "--version"]
