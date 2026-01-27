@@ -1,2 +1,2 @@
-# On implante volontairement une très vieille version de Django avec des failles critiques (SQL Injection, XSS)
+# On corrige les failles en mettant à jour le framework Django
 Django==6.0.1
